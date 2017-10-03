@@ -54,7 +54,7 @@ void inputFromFile(Student *list, int &size) {
 	fopen_s(&fin, dir.c_str(), "rb");
 	if (fin != NULL) {
 		while (!feof(fin)) {
-			if (fread(list + size, sizeof(Student), 1, fin))
+			if (fread((list + size), sizeof(Student), 1, fin))
 				size++;
 		}
 		fclose(fin);
@@ -62,7 +62,6 @@ void inputFromFile(Student *list, int &size) {
 	}
 	else
 		cout << "Could not open this file" << endl;
-
 }
 
 void saveToFile(Student *list, int &size) {
@@ -80,6 +79,7 @@ void saveToFile(Student *list, int &size) {
 	else
 		cout << "Could not save to this file" << endl;
 }
+
 int createMenu(int length, ...) {
 	va_list params;
 	va_start(params, length);
@@ -96,6 +96,7 @@ int createMenu(int length, ...) {
 	cin >> choose;
 	return choose;
 }
+
 void viewData(Student *list, int size) {
 	for (int i = 0; i < size; i++) {
 		cout << "Student #" << i << endl;
@@ -106,6 +107,7 @@ void viewData(Student *list, int size) {
 		cout << "\tChemistry: " << (list + i)->chemistry << endl;
 	}
 }
+
 bool pass(Student *student) {
 	float avg = (student->math + student->physic + student->chemistry) / 3;
 	if (avg >= 5 && (student->math*student->physic*student->chemistry) != 0)
@@ -125,6 +127,7 @@ void generateList(Compare func, Student *list, int size) {
 		}
 	}
 }
+
 void main() {
 	system("color 60");
 	cout << "Students Management System" << endl;
