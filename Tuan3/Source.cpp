@@ -43,7 +43,7 @@ void inputFromKeyboard(Student *list, int &size) {
 	}
 }
 
-void inputFromFile(Student *list, int &size) {
+void inputFromFile(Student *&list, int &size) {
 	size = 0;
 	fseek(stdin, 0, SEEK_END);
 	list = new Student[LENGTH_LIMIT];
@@ -131,7 +131,7 @@ void generateList(Compare func, Student *list, int size) {
 void main() {
 	system("color 60");
 	cout << "Students Management System" << endl;
-	Student *list = new Student[LENGTH_LIMIT];
+	Student *list = NULL;
 	int size = 0;
 	bool exit = false;
 	do {
