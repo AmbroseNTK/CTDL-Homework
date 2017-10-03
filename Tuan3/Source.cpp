@@ -9,8 +9,8 @@
 using namespace std;
 
 struct Student {
-	string name;
-	string studentID;
+	char name[100];
+	char studentID[100];
 	float math;
 	float physic;
 	float chemistry;
@@ -18,20 +18,29 @@ struct Student {
 
 typedef bool(*Compare)(Student*);
 
-void inputFromKeyboard(Student *list, int &size) {
+ostream& operator<<(ostream &os, const Student &student) {
+	os << "\tName: " << student.name << endl;
+	os << "\tStudent ID: " << student.studentID << endl;
+	os << "\tMath: " << student.math << endl;
+	os << "\tPhysic: " << student.physic << endl;
+	os << "\tChemistry: " << student.chemistry << endl;
+	return os;
+}
+
+void inputFromKeyboard(Student *&list, int &size) {
 	int newSize = 0;
 	cout << "Enter new size: ";
-	cin >> newSize;
 	fseek(stdin, 0, SEEK_END);
+	cin >> newSize;
 	int limit = size + newSize;
 	for (int i = size; i < limit; i++) {
 		cout << "Student #" << i << endl;
 		cout << "\tName: ";
 		fseek(stdin, 0, SEEK_END);
-		getline(cin, (list + i)->name);
+		gets_s((list + i)->name);
 		fseek(stdin, 0, SEEK_END);
 		cout << "\tStudent ID: ";
-		cin >> (list + i)->studentID;
+		gets_s((list + i)->studentID);
 		cout << "\tMath: ";
 		cin >> (list + i)->math;
 		cout << "\tPhysic: ";
@@ -58,13 +67,13 @@ void inputFromFile(Student *&list, int &size) {
 				size++;
 		}
 		fclose(fin);
-		cout << "Loaded" << endl;
+		cout << "Loaded " << size << " row(s)" << endl;
 	}
 	else
 		cout << "Could not open this file" << endl;
 }
 
-void saveToFile(Student *list, int &size) {
+void saveToFile(Student *&list, int &size) {
 	FILE *fout;
 	string dir = "";
 	cout << "Enter file directory: ";
@@ -97,14 +106,10 @@ int createMenu(int length, ...) {
 	return choose;
 }
 
-void viewData(Student *list, int size) {
+void viewData(Student *&list, int size) {
 	for (int i = 0; i < size; i++) {
 		cout << "Student #" << i << endl;
-		cout << "\tName: " << (list + i)->name << endl;
-		cout << "\tStudent ID: " << (list + i)->studentID << endl;
-		cout << "\tMath: " << (list + i)->math << endl;
-		cout << "\tPhysic: " << (list + i)->physic << endl;
-		cout << "\tChemistry: " << (list + i)->chemistry << endl;
+		cout << *(list + i);
 	}
 }
 
@@ -123,7 +128,7 @@ bool fail(Student *student) {
 void generateList(Compare func, Student *list, int size) {
 	for (int i = 0; i < size; i++) {
 		if (func((list + i))) {
-			cout <<"\t"<<i<<". "<< (list + i)->name.c_str() << endl;
+			cout <<"\t"<<i<<". "<< (list + i)->name << endl;
 		}
 	}
 }
@@ -131,7 +136,7 @@ void generateList(Compare func, Student *list, int size) {
 void main() {
 	system("color 60");
 	cout << "Students Management System" << endl;
-	Student *list = NULL;
+	Student *list = new Student[LENGTH_LIMIT];
 	int size = 0;
 	bool exit = false;
 	do {
