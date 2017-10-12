@@ -121,7 +121,7 @@ bool pass(Student *student) {
 }
 bool fail(Student *student) {
 	float avg = (student->math + student->physic + student->chemistry) / 3;
-	if (avg <=5 || (student->math*student->physic*student->chemistry) == 0)
+	if (avg <= 5 || (student->math*student->physic*student->chemistry) == 0)
 		return true;
 	return false;
 }
