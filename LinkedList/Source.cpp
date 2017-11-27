@@ -13,6 +13,20 @@ void printNode(Node *node) {
 	cout << node->data.a << endl;
 }
 
+void equal(Node *node, Node **args) {
+	if (node->data.a == args[0]->data.a) {
+		args[1] = node;
+	}
+}
+
+Node* lookingFor(LinkedList list, Data key) {
+	Node **args = new Node*[2];
+	args[0] = createNode(key);
+	args[1] = new Node;
+	forEach(list, equal, args);
+	return args[1];
+}
+
 void main() {
 	LinkedList list;
 	init(list);
@@ -27,6 +41,17 @@ void main() {
 	addTail(list, d3);
 	cout << "After add" << endl;
 	forEach(list, printNode);
+	
+	cout << "Looking for: 3" << endl;
+	Data key;
+	key.a = 3;
+	printNode(lookingFor(list, key));
+
+	cout << "Looking for: 7" << endl;
+	key.a = 7;
+	printNode(lookingFor(list, key));
+
+
 	deleteHead(list);
 	deleteHead(list);
 	deleteTail(list);

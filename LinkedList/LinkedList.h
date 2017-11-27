@@ -13,6 +13,7 @@ struct LinkedList {
 };
 
 typedef void (*Enumerator)(Node*);
+typedef void (*Enumerators)(Node*, Node**);
 
 Node* createNode(Data data) {
 	Node *node = new Node;
@@ -71,5 +72,11 @@ void deleteTail(LinkedList &list) {
 void forEach(LinkedList &list, Enumerator doSomething) {
 	for (Node *node = list.pHead; node != NULL; node = node->pNext) {
 		doSomething(node);
+	}
+}
+
+void forEach(LinkedList &list, Enumerators doSomething, Node **addition) {
+	for (Node *node = list.pHead; node != NULL; node = node->pNext) {
+		doSomething(node, addition);
 	}
 }
