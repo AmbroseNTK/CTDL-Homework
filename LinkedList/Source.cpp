@@ -19,6 +19,19 @@ void equal(Node *node, Node **args) {
 	}
 }
 
+void sort(LinkedList &linkedList) {
+	for (Node *nodeI = linkedList.pHead; nodeI->pNext != NULL; nodeI = nodeI->pNext) {
+		for (Node *nodeJ = nodeI->pNext; nodeJ != NULL; nodeJ = nodeJ->pNext) {
+			if (nodeI->data.a < nodeJ->data.a) {
+				Data temp = nodeI->data;
+				nodeI->data = nodeJ->data;
+				nodeJ->data = temp;
+			}
+		}
+		
+	}
+}
+
 Node* lookingFor(LinkedList list, Data key) {
 	Node **args = new Node*[2];
 	args[0] = createNode(key);
@@ -39,6 +52,7 @@ void main() {
 	addHead(list, d2);
 	addTail(list, d4);
 	addTail(list, d3);
+	sort(list);
 	cout << "After add" << endl;
 	forEach(list, printNode);
 	
