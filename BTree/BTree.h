@@ -5,7 +5,7 @@ struct BNode {
 	BNode *pR;
 };
 
-typedef void(*Enumerator)(BNode*, BNode**);
+typedef void(*Enumerator)(BNode*, BNode** &);
 
 typedef Data(*InputMethod)();
 
@@ -39,21 +39,20 @@ void createBTree(BNode* &pRoot, InputMethod input, PrintMethod printData) {
 		if (pRoot->pL == NULL) {
 			cout << "Current node: ";
 			printData(pRoot);
-			cout << "Input the left [Y-0|N-1] :";
-			int choose = 0;
+			cout << "Input the left [Y|N] :";
+			char choose = ' ';
 			cin >> choose;
-			if (choose == 0) {
+			if (choose == 'y' || choose == 'Y') {
 				createBTree(pRoot->pL, input, printData);
 			}
 		}
 		if (pRoot->pR == NULL) {
 			cout << "Current node: ";
 			printData(pRoot);
-			cout << "Input the right [Y-0|N-1] :";
-			int choose = 0;
+			cout << "Input the right [Y|N] :";
+			char choose = ' ';
 			cin >> choose;
-			if (choose == 0) {
-
+			if (choose == 'y'||choose=='Y') {
 				createBTree(pRoot->pR, input, printData);
 			}
 		}
@@ -61,7 +60,8 @@ void createBTree(BNode* &pRoot, InputMethod input, PrintMethod printData) {
 	}
 }
 
-void forEach(BNode *node, char *order, Enumerator func, BNode **params) {
+
+void forEach(BNode *node, char *order, Enumerator func, BNode ** &params) {
 
 	if (node == NULL)
 		return;
@@ -79,5 +79,9 @@ void forEach(BNode *node, char *order, Enumerator func, BNode **params) {
 			break;
 		}
 	}
+}
 
+void forEach(BNode *node, char *order, Enumerator func) {
+	BNode **params = NULL;
+	forEach(node, order, func, params);
 }
