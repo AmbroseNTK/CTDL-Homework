@@ -20,9 +20,9 @@ void main() {
 	dA.a = 1;
 	dB.a = 2;
 	dC.a = 3;
-	add(queue, dA);
-	add(queue, dB);
-	add(queue, dC);
-	cout << get(queue).a << "\t" << get(queue).a << "\t" << get(queue).a << endl;
+	push(queue, dA);
+	push(queue, dB);
+	push(queue, dC);
+	cout << pop(queue).a << "\t" << pop(queue).a << "\t" << pop(queue).a << endl;
 	system("PAUSE");
 }

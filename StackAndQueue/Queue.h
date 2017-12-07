@@ -19,7 +19,7 @@ bool isEmpty(Queue queue) {
 	return false;
 }
 
-void add(Queue &queue, Data data) {
+void push(Queue &queue, Data data) {
 	Node *node = new Node;
 	node->data = data;
 	node->pNext = NULL;
@@ -33,8 +33,13 @@ void add(Queue &queue, Data data) {
 	}
 }
 
-Data get(Queue &queue) {
+Data pop(Queue &queue) {
 	Data result = queue.pHead->data;
 	queue.pHead = queue.pHead->pNext;
+	return result;
+}
+
+Data getTop(Queue &queue) {
+	Data result = queue.pHead->data;
 	return result;
 }
