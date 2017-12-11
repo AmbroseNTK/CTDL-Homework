@@ -26,7 +26,6 @@ void push(Queue &queue, Data data) {
 	if (isEmpty(queue)) {
 		queue.pHead = node;
 		queue.pTail = node;
-		//queue.pHead->pNext = node;
 	}
 	else {
 		queue.pTail->pNext = node;
