@@ -1,5 +1,6 @@
 #include<iostream>
 #include<Windows.h>
+#include<iomanip>
 
 #define MAX_N 100
 
@@ -28,8 +29,10 @@ Data inputData() {
 	return data;
 }
 
-void outputData(Data data) {
+void outputData(Data data,int offset) {
 	if (&data != NULL) {
+		for (int i = 0; i < offset; i++)
+			cout << "-";
 		cout << "Book name: " << data.bookName << "; price = " << data.price << endl;
 	}
 	else
@@ -43,11 +46,11 @@ void demoStack() {
 	push(inputData(), stack);
 	push(inputData(), stack);
 
-	outputData(pop(stack));
-	outputData(getTop(stack));
-	outputData(pop(stack));
-	outputData(pop(stack));
-	outputData(pop(stack));
+	outputData(pop(stack),0);
+	outputData(getTop(stack),0);
+	outputData(pop(stack),0);
+	outputData(pop(stack),0);
+	outputData(pop(stack),0);
 }
 
 void demoQueue() {
@@ -57,20 +60,21 @@ void demoQueue() {
 	push(inputData(), queue);
 	push(inputData(), queue);
 
-	outputData(pop(queue));
-	outputData(getTop(queue));
-	outputData(pop(queue));
-	outputData(pop(queue));
-	outputData(pop(queue));
+	outputData(pop(queue),0);
+	outputData(getTop(queue),0);
+	outputData(pop(queue),0);
+	outputData(pop(queue),0);
+	outputData(pop(queue),0);
 }
 
 void demoBTree() {
 	BTree bTree;
 	init(bTree);
 	createBTree(bTree.pRoot,inputData,outputData);
+	printTree(bTree.pRoot, 0, outputData);
 }
 
 void main() {
-	demoQueue();
+	demoBTree();
 	system("PAUSE");
 }
